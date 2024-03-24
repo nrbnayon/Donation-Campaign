@@ -1,10 +1,6 @@
 import BannerImg from "../../assets/Resources/Banner.png";
-
-const Banner = () => {
-  const handleSearch = () => {
-    alert("Search button clicked!");
-    // Add your search logic here
-  };
+import PropTypes from "prop-types";
+const Banner = ({ setValue, handleSearch }) => {
   return (
     <div className="hero-content relative text-center text-neutral-content min-h-screen">
       <div
@@ -26,12 +22,13 @@ const Banner = () => {
           <input
             type="text"
             placeholder="Search..."
+            onChange={(e) => setValue(e.target.value)}
             className="py-2 text-black px-4 w-full border border-gray-300 rounded-l-md focus:outline-none focus:border-blue-500"
             style={{ zIndex: 1 }}
           />
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-r-md"
-            onClick={handleSearch}
+            onClick={() => handleSearch()}
             style={{ zIndex: 1 }}
           >
             Search
@@ -41,5 +38,8 @@ const Banner = () => {
     </div>
   );
 };
-
+Banner.propTypes = {
+  setValue: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func,
+};
 export default Banner;

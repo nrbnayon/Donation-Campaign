@@ -12,13 +12,40 @@ const NavBar = () => {
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
             <li className="btn btn-ghost md:text-xl">
-              <NavLink to="/">Home</NavLink>
+              <NavLink
+                className={({ isActive }) => [
+                  isActive
+                    ? "text-red-500 font-bold underline"
+                    : "btn btn-ghost md:text-xl",
+                ]}
+                to="/"
+              >
+                Home
+              </NavLink>
             </li>
             <li className="btn btn-ghost md:text-xl">
-              <NavLink to="/donation">Donation</NavLink>
+              <NavLink
+                className={({ isActive }) => [
+                  isActive
+                    ? "text-red-500 font-bold underline"
+                    : "btn btn-ghost md:text-xl",
+                ]}
+                to="/donation"
+              >
+                Donation
+              </NavLink>
             </li>
             <li className="btn btn-ghost md:text-xl">
-              <NavLink to="/statistics">Statistics</NavLink>
+              <NavLink
+                className={({ isActive }) => [
+                  isActive
+                    ? "text-red-500 font-bold underline"
+                    : "btn btn-ghost md:text-xl",
+                ]}
+                to="/statistics"
+              >
+                Statistics
+              </NavLink>
             </li>
           </ul>
         </div>

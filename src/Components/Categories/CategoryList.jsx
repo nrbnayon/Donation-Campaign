@@ -11,18 +11,7 @@ import {
 import { Link } from "react-router-dom";
 
 const CategoryList = ({ item }) => {
-  const {
-    id,
-    title,
-    // description,
-    // img,
-    category,
-    cardBg,
-    // targetAmount,
-    // currentAmount,
-    // endDate,
-    // location,
-  } = item || {};
+  const { id, title, category, cardBg } = item || {};
   return (
     <Link to={`/donation-details/${id}`}>
       <Card className="mt-6" style={{ background: cardBg }}>

@@ -3,6 +3,8 @@ import PageNotFound from "../Pages/PageNotFound/PageNotFound";
 import Home from "../Pages/Home/Home";
 import Root from "../Layout/Root";
 import CategoryDetails from "../Components/Categories/CategoryDetails";
+import Donations from "../Pages/Donation/Donations";
+import Statistics from "../Pages/Statistics/Statistics";
 
 const router = createBrowserRouter([
   {
@@ -16,11 +18,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/donation",
-        element: <Home />,
+        element: <Donations />,
       },
       {
         path: "/statistics",
-        element: <Home />,
+        element: <Statistics />,
       },
       {
         path: "/donation-details/:id",

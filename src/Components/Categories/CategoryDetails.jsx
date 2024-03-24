@@ -1,22 +1,34 @@
 import { useParams } from "react-router-dom";
 import useDonationData from "../../Hooks/useDonationData";
 import { useEffect, useState } from "react";
+import { Card, CardHeader, Button } from "@material-tailwind/react";
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Typography,
-  Avatar,
-  Tooltip,
-  Button,
-} from "@material-tailwind/react";
+  getFromLocalStoredData,
+  saveToLocalStorage,
+} from "../../utils/localStorage";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CategoryDetails = () => {
   const { id } = useParams();
-  const { data, loading } = useDonationData();
+  const { data } = useDonationData();
 
   const [newData, setNewData] = useState({});
+
+  const handleDonate = () => {
+    // Check if the donation already exists in localStorage
+    const existedData = getFromLocalStoredData().find(
+      (item) => item.id === parseInt(newData.id)
+    );
+    if (!existedData) {
+      // If not already donated, save the donation and show success toast
+      saveToLocalStorage(newData);
+      toast.success("Donation successful!");
+    } else {
+      // If already donated, show warning toast
+      toast.warn("Already Donated");
+    }
+  };
 
   useEffect(() => {
     const singleData = data.find((item) => item.id === parseInt(id));
@@ -53,70 +65,27 @@ const CategoryDetails = () => {
         />
         <div className="absolute bottom-0 bg-opacity-40 bg-black w-full h-14 pl-8">
           <Button
+            onClick={handleDonate}
             className="my-2 text-black font-bold"
             style={{ background: cardBg }}
-            variant="body2"
-            color="gray"
           >
             Donate: ${targetAmount}
           </Button>
         </div>
       </CardHeader>
-
-      <CardBody>
-        <Typography variant="h4" color="blue-gray" className="uppercase">
-          {title}
-        </Typography>
-        <Typography variant="lead" color="gray" className="mt-3 font-normal">
-          {description}
-        </Typography>
-
-        {/* Additional sections */}
-        {currentAmount && (
-          <Typography variant="body2" color="gray">
+      <div className="card-body">
+        <h2 className="card-title">{title || "Default Title"}</h2>
+        <p> {description}</p>
+        <div className="card-actions justify-end">
+          <p className="text-xlg font-bold">Location: {location}</p>
+          <div className="badge badge-outline">
             Current Amount: {currentAmount}
-          </Typography>
-        )}
-        {endDate && (
-          <Typography variant="body2" color="gray">
-            End Date: {endDate}
-          </Typography>
-        )}
-        {location && (
-          <Typography variant="body2" color="gray">
-            Location: {location}
-          </Typography>
-        )}
-        {/* End of additional sections */}
-      </CardBody>
-      <CardFooter className="flex items-center justify-between">
-        {/* Avatar section */}
-        <div className="flex items-center -space-x-3">
-          <Tooltip content="Natali Craig">
-            <Avatar
-              size="sm"
-              variant="circular"
-              alt="natali craig"
-              src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1061&q=80"
-              className="border-2 border-white hover:z-10"
-            />
-          </Tooltip>
-          <Tooltip content="Tania Andrew">
-            <Avatar
-              size="sm"
-              variant="circular"
-              alt="tania andrew"
-              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-              className="border-2 border-white hover:z-10"
-            />
-          </Tooltip>
+          </div>
+          <div className="badge badge-outline">End Date: {endDate}</div>
+          <div className="badge badge-outline">{category}</div>
         </div>
-        {/* End Avatar section */}
-
-        <Typography color="gray" className="font-normal">
-          {category}
-        </Typography>
-      </CardFooter>
+      </div>
+      <ToastContainer />
     </Card>
   );
 };
