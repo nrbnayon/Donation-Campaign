@@ -45,6 +45,7 @@ const Statistics = () => {
   };
   // eslint-disable-next-line react/prop-types
   const CustomTooltip = ({ active, payload }) => {
+    // eslint-disable-next-line react/prop-types
     if (active && payload && payload.length) {
       // eslint-disable-next-line react/prop-types
       const { name, value } = payload[0];
