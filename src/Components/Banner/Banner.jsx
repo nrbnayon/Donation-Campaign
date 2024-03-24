@@ -14,7 +14,7 @@ const Banner = () => {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          zIndex: -1, // Set a negative z-index for the background image
+          zIndex: -1,
         }}
       ></div>
       <div className="max-w-lg relative">
