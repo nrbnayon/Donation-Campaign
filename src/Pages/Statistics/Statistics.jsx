@@ -12,7 +12,7 @@ import useLocalStorage from "../../Hooks/useLocalStorage";
 const Statistics = () => {
   const { data: chartData } = useDonationData();
   const { localData } = useLocalStorage();
-  const COLORS = ["#FFBB28", "#FF8042"];
+  const COLORS = ["#FFBB28", "#0088FE", "#00C49F"];
   const data = [
     { name: "Your Donation", value: localData.length },
     { name: "Available Donation", value: chartData.length - localData.length },
@@ -43,11 +43,9 @@ const Statistics = () => {
       </text>
     );
   };
-  // eslint-disable-next-line react/prop-types
+
   const CustomTooltip = ({ active, payload }) => {
-    // eslint-disable-next-line react/prop-types
     if (active && payload && payload.length) {
-      // eslint-disable-next-line react/prop-types
       const { name, value } = payload[0];
       return (
         <div className="custom-tooltip">
@@ -57,9 +55,10 @@ const Statistics = () => {
     }
     return null;
   };
+
   return (
     <div className="w-full min-h-screen">
-      <ResponsiveContainer>
+      <ResponsiveContainer width="100%" height={400}>
         <PieChart>
           <Pie
             data={data}
@@ -67,7 +66,7 @@ const Statistics = () => {
             cy="50%"
             labelLine={false}
             label={renderCustomizedLabel}
-            outerRadius={120}
+            outerRadius={150}
             fill="#8884d8"
             dataKey="value"
           >
@@ -75,11 +74,12 @@ const Statistics = () => {
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
+                stroke="none"
               />
             ))}
           </Pie>
           <Tooltip content={<CustomTooltip />} />
-          <Legend />
+          <Legend align="center" />
         </PieChart>
       </ResponsiveContainer>
     </div>
